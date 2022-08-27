@@ -1,10 +1,14 @@
 //Exercise 4.1-4.2
 
+//Refactoring
+// -> added dotenv -> fix app so that the URL is run from .env file...
+
 const http = require('http')
 const express = require('express')
 const app = express()
 const cors = require('cors')
 const mongoose = require('mongoose')
+require('dotenv').config()
 
 const blogSchema = new mongoose.Schema({
     title: String,
@@ -15,7 +19,7 @@ const blogSchema = new mongoose.Schema({
 
 const Blog = mongoose.model('Blog', blogSchema)
 
-const mongoUrl = 'mongodb+srv://fullstack:JbF26wEurBCFn6pw@cluster0.7ml3hjr.mongodb.net/blogList?retryWrites=true&w=majority'
+const mongoUrl = process.env.MONGODB_URI
 
 mongoose.connect(mongoUrl)
 
@@ -25,20 +29,20 @@ app.use(express.json())
 app.get('/api/blogs', (request, response) => {
 
     Blog
-    .find({})
-    .then(blogs => {
-        response.json(blogs)
-    })
+        .find({})
+        .then(blogs => {
+            response.json(blogs)
+        })
 })
 
 app.post('/api/blogs', (request, response) => {
     const blog = new Blog(request.body)
 
     blog
-    .save()
-    .then(result => {
-        response.status(201).json(result)
-    })
+        .save()
+        .then(result => {
+            response.status(201).json(result)
+        })
 })
 
 const PORT = 3003
