@@ -1,14 +1,13 @@
-//Exercise 4.1-4.2
+//Exercise 4.3-4-7
 
-//Done refactoring
+//Status: added jester and node to .eslintrc.js
 
-const app = require('./app')
-const http = require('http')
-const config = require('./utils/config')
+const app = require("./app");
+const http = require("http");
+const config = require("./utils/config");
 
-const server = http.createServer(app)
+const server = http.createServer(app);
 
 server.listen(config.PORT, () => {
-    console.log(`Server running on port ${config.PORT}`)
-})
-
+  console.log(`Server running on port ${config.PORT}`);
+});
